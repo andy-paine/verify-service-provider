@@ -133,7 +133,7 @@ public class MetadataConfigurationWithHubDefaults implements VerifyServiceProvid
             TlsConfiguration tlsConfiguration = new TlsConfiguration() {{
                 setProtocol("TLSv1.2");
                 setVerifyHostname(true);
-                setTrustSelfSignedCertificates(false);
+                setTrustSelfSignedCertificates(true);
             }};
             setTlsConfiguration(tlsConfiguration);
         }};
@@ -147,6 +147,7 @@ public class MetadataConfigurationWithHubDefaults implements VerifyServiceProvid
                 break;
             case INTEGRATION:
             case COMPLIANCE_TOOL:
+            case LOCAL:
                 trustStoreName = TEST_VERIFY_TRUSTSTORE_NAME;
                 break;
             default:

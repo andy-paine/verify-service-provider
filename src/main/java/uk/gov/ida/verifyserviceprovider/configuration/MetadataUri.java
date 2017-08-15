@@ -9,7 +9,8 @@ public enum MetadataUri {
 
     PRODUCTION("Production", URI.create("https://www.signin.service.gov.uk/SAML2/metadata/federation")),
     INTEGRATION("Integration", URI.create("https://www.integration.signin.service.gov.uk/SAML2/metadata/federation")),
-    COMPLIANCE_TOOL("Compliance Tool", URI.create("https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/SAML2/metadata/federation"));
+    COMPLIANCE_TOOL("Compliance Tool", URI.create("https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/SAML2/metadata/federation")),
+    LOCAL("Local", URI.create("https://localhost:55000/local/metadata.xml"));
 
     private String environment;
     private URI uri;

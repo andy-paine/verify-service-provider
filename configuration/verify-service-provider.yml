@@ -34,6 +34,7 @@ hubSsoLocation: ${HUB_SSO_LOCATION:-https://compliance-tool-reference.ida.digita
 # Hub Public certificates from the metadata to identify the hub
 verifyHubMetadata:
   uri: ${HUB_METADATA_URL:-https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/SAML2/metadata/federation}
+  expectedEntityId: ${HUB_ENTITY_ID:-"https://signin.service.gov.uk"}
 
 # Location of Matching Service Metadata
 # Verify Service Provider consumes the metadata and uses
