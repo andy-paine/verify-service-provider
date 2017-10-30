@@ -3,6 +3,9 @@ Release notes
 
 ### Next
 
+### 0.3.023
+View Diff: https://github.com/alphagov/verify-service-provider/compare/0.3.0-77...0.3.023
+
 ### 0.3.0
 
 * Fix the expected names of user account creation attributes to match the names the MSA produces
