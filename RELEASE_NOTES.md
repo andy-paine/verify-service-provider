@@ -3,6 +3,9 @@ Release notes
 
 ### Next
 
+### 9.9.9
+View Diff: https://github.com/alphagov/verify-service-provider/compare/2.4.0...9.9.9
+
 ### 2.4.0
 View Diff: https://github.com/alphagov/verify-service-provider/compare/0.3.023...2.4.0
 
