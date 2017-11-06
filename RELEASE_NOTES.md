@@ -3,6 +3,9 @@ Release notes
 
 ### Next
 
+### 543.64643.453
+[View Diff](https://github.com/alphagov/verify-service-provider/compare/432.6436.52...543.64643.453)
+
 ### 432.6436.52
 [View Diff](https://github.com/alphagov/verify-service-provider/compare/321.456.789...432.6436.52)
 
