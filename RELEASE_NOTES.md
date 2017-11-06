@@ -3,6 +3,9 @@ Release notes
 
 ### Next
 
+### 0.7.0
+[View Diff](https://github.com/alphagov/verify-service-provider/compare/0.6.0...0.7.0)
+
 ### 0.6.0
 [View Diff](https://github.com/alphagov/verify-service-provider/compare/0.5.0...0.6.0)
 
