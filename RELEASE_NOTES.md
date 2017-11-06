@@ -3,6 +3,9 @@ Release notes
 
 ### Next
 
+### 9.99.9999999999
+[View Diff](https://github.com/alphagov/verify-service-provider/compare/9.99.9999...9.99.9999999999)
+
 ### 9.99.9999
 [View Diff](https://github.com/alphagov/verify-service-provider/compare/9.99.999...9.99.9999)
 
