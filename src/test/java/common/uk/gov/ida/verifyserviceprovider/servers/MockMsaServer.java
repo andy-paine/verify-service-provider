@@ -1,8 +1,10 @@
 package common.uk.gov.ida.verifyserviceprovider.servers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.junit.WireMockClassRule;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
+import httpstub.HttpStubRule;
 import org.joda.time.DateTime;
 import org.opensaml.core.xml.io.MarshallingException;
 import org.opensaml.saml.saml2.metadata.EntityDescriptor;
@@ -17,9 +19,15 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMoc
 import static uk.gov.ida.saml.core.test.TestEntityIds.TEST_RP_MS;
 import static uk.gov.ida.saml.core.test.builders.metadata.EntitiesDescriptorBuilder.anEntitiesDescriptor;
 
-public class  MockMsaServer extends WireMockClassRule {
+public class  MockMsaServer extends HttpStubRule {
 
     public static final String MSA_ENTITY_ID = TEST_RP_MS;
+    private static final String MSA_METDATA_PATH = "/matching-service/metadata";
+    private static final String APPLICATION_SAMLMETADATA_XML = "application/samlmetadata+xml";
+
+    public MockMsaServer() {
+        super();
+    }
 
     public static String msaMetadata() {
         EntityDescriptor entityDescriptor = new EntityDescriptorFactory().idpEntityDescriptor(MSA_ENTITY_ID);
@@ -34,21 +42,11 @@ public class  MockMsaServer extends WireMockClassRule {
 
     }
 
-    public MockMsaServer() {
-        super(wireMockConfig().dynamicPort());
+    public void serveDefaultMetadata() throws JsonProcessingException {
+        this.register(MSA_METDATA_PATH, 200, APPLICATION_SAMLMETADATA_XML, msaMetadata());
     }
 
-    public void serveDefaultMetadata() {
-        stubFor(
-            get(urlEqualTo("/matching-service/metadata"))
-                .willReturn(aResponse()
-                    .withStatus(200)
-                    .withBody(msaMetadata())
-                )
-        );
-    }
-
-    public String getUri() {
-        return String.format("http://localhost:%s/matching-service/metadata", this.port());
+    public String getMsaMetdataUri() {
+        return "http://localhost:" + getPort() + MSA_METDATA_PATH;
     }
 }

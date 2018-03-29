@@ -1,5 +1,6 @@
 package feature.uk.gov.ida.verifyserviceprovider.configuration;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import common.uk.gov.ida.verifyserviceprovider.servers.MockMsaServer;
 import io.dropwizard.client.JerseyClientBuilder;
@@ -62,7 +63,7 @@ public class HubMetadataFeatureTest {
             "verify-service-provider.yml",
             config("verifyHubConfiguration.environment", "COMPLIANCE_TOOL"),
             config("verifyHubConfiguration.metadata.uri", () -> String.format("http://localhost:%s/SAML2/metadata", wireMockServer.port())),
-            config("msaMetadata.uri", msaServer::getUri),
+            config("msaMetadata.uri", msaServer.getMsaMetdataUri()),
             config("msaMetadata.expectedEntityId", MockMsaServer.MSA_ENTITY_ID),
             config("verifyHubConfiguration.metadata.expectedEntityId", HUB_ENTITY_ID),
             config("verifyHubConfiguration.metadata.trustStore.path", verifyHubKeystoreResource.getAbsolutePath()),
@@ -74,7 +75,11 @@ public class HubMetadataFeatureTest {
 
         IdaSamlBootstrap.bootstrap();
         wireMockServer.start();
-        msaServer.serveDefaultMetadata();
+        try {
+            msaServer.serveDefaultMetadata();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     @After

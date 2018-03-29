@@ -10,12 +10,10 @@ import java.util.List;
 
 public class EntityIdService {
     private final List<String> configuredEntityIds;
-    private final String defaultEntityId;
     private static final Logger LOG = LoggerFactory.getLogger(EntityIdService.class);
 
     public EntityIdService(List<String> configuredEntityIds) {
         this.configuredEntityIds = configuredEntityIds;
-        this.defaultEntityId = configuredEntityIds.size() == 1 ? configuredEntityIds.get(0) : null;
     }
 
     public String getEntityId(RequestGenerationBody requestGenerationBody) {
@@ -31,18 +29,10 @@ public class EntityIdService {
     }
 
     private String getEntityId(String providedEntityId) {
-        if (providedEntityId == null) {
-            if (defaultEntityId != null) {
-                return defaultEntityId;
-            } else {
-                throw new InvalidEntityIdException("No entityId was provided, and there are several in config");
-            }
+        if (configuredEntityIds.contains(providedEntityId)) {
+            return providedEntityId;
         } else {
-            if (configuredEntityIds.contains(providedEntityId)) {
-                return providedEntityId;
-            } else {
-                throw new InvalidEntityIdException(String.format("Provided entityId: %s is not listed in config", providedEntityId));
-            }
+            throw new InvalidEntityIdException(String.format("Provided entityId: %s is not listed in config", providedEntityId));
         }
     }
 }

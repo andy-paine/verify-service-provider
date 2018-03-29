@@ -3,24 +3,28 @@ package uk.gov.ida.verifyserviceprovider.configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.dropwizard.Configuration;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.Duration;
+import uk.gov.ida.verifyserviceprovider.exceptions.EntityIdConfigurationException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.net.URI;
 import java.security.PrivateKey;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class VerifyServiceProviderConfiguration extends Configuration {
 
-    public static final String NOT_EMPTY_MESSAGE = "may not be empty";
+    @JsonProperty
+    @Valid
+    private List<String> serviceEntityIds = new ArrayList<>();
 
     @JsonProperty
-    @NotNull
-    @Size(min = 1, message = NOT_EMPTY_MESSAGE)
     @Valid
-    private List<String> serviceEntityIds;
+    private String serviceEntityId;
 
     @JsonProperty
     @NotNull
@@ -55,7 +59,13 @@ public class VerifyServiceProviderConfiguration extends Configuration {
     private Duration clockSkew;
 
     public List<String> getServiceEntityIds() {
-        return serviceEntityIds;
+        if (StringUtils.isBlank(serviceEntityId) && serviceEntityIds.isEmpty()) {
+            throw new EntityIdConfigurationException("Either serviceEntityId or serviceEntityIds must be defined");
+        }
+        if (!StringUtils.isBlank(serviceEntityId) && !serviceEntityIds.isEmpty()) {
+            throw new EntityIdConfigurationException("Both serviceEntityId and serviceEntityIds defined");
+        }
+        return StringUtils.isBlank(serviceEntityId) ? serviceEntityIds : Collections.singletonList(serviceEntityId);
     }
 
     public URI getHubSsoLocation() {

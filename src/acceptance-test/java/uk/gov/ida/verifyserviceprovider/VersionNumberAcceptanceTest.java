@@ -13,11 +13,9 @@ import static javax.ws.rs.core.Response.Status.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VersionNumberAcceptanceTest {
-    @ClassRule
-    public static MockMsaServer msaServer = new MockMsaServer();
 
     @ClassRule
-    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(msaServer);
+    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule();
 
     private static Client client = application.client();
 

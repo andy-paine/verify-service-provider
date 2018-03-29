@@ -30,10 +30,7 @@ public class SuccessMatchAcceptanceTest {
     private static String configuredEntityId = "http://verify-service-provider";
 
     @ClassRule
-    public static MockMsaServer msaServer = new MockMsaServer();
-
-    @ClassRule
-    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(msaServer, configuredEntityId);
+    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(configuredEntityId);
 
     private static Client client = application.client();
     private static ComplianceToolService complianceTool = new ComplianceToolService(client);

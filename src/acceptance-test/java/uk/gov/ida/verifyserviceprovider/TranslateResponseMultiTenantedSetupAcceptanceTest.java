@@ -28,10 +28,7 @@ public class TranslateResponseMultiTenantedSetupAcceptanceTest {
     private static final String configuredEntityIdTwo = "http://service-entity-id-two";
 
     @ClassRule
-    public static MockMsaServer msaServer = new MockMsaServer();
-
-    @ClassRule
-    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(msaServer, String.format("%s,%s", configuredEntityIdOne, configuredEntityIdTwo));
+    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(String.format("%s,%s", configuredEntityIdOne, configuredEntityIdTwo));
 
     private static Client client = application.client();
     private static ComplianceToolService complianceTool = new ComplianceToolService(client);

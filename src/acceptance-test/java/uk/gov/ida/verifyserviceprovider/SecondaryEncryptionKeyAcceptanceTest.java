@@ -2,6 +2,7 @@ package uk.gov.ida.verifyserviceprovider;
 
 import com.google.common.collect.ImmutableMap;
 import common.uk.gov.ida.verifyserviceprovider.servers.MockMsaServer;
+import io.dropwizard.testing.ConfigOverride;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -28,10 +29,7 @@ import static uk.gov.ida.verifyserviceprovider.services.ComplianceToolService.BA
 public class SecondaryEncryptionKeyAcceptanceTest {
 
     @ClassRule
-    public static MockMsaServer msaServer = new MockMsaServer();
-
-    @ClassRule
-    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(msaServer, TEST_RP_MS_PRIVATE_ENCRYPTION_KEY, "http://verify-service-provider");
+    public static VerifyServiceProviderAppRule application = new VerifyServiceProviderAppRule(TEST_RP_MS_PRIVATE_ENCRYPTION_KEY, ConfigOverride.config("serviceEntityIds", "http://verify-service-provider"));
 
     private static Client client = application.client();
     private static ComplianceToolService complianceTool = new ComplianceToolService(client);
